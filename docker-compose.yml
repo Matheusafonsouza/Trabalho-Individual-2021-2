@@ -1,6 +1,19 @@
 version: "3"
 
 services:
+  app:
+    build:
+      context: aplicacao/
+      dockerfile: Dockerfile
+    volumes:
+      - ./aplicacao:/code
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:13
     restart: always
@@ -12,8 +25,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     networks:
       - app_network
 
