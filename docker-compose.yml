@@ -30,6 +30,18 @@ services:
     networks:
       - app_network
 
+  nginx:
+    build:
+      context: nginx/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    networks:
+      - app_network
+
 volumes:
   postgres_data:
 
